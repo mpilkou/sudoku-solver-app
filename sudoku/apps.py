@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class SudokuConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'sudoku'
+    verbose_name = 'Программа для решения судоку'
