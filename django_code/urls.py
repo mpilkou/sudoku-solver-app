@@ -25,8 +25,8 @@ from oauth2_provider.views import AuthorizationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/', include('api.urls')),
-    # path('sudoku/', include('sudoku.urls')),
+    path('api/', include('api.urls')),
+    path('sudoku/', include('sudoku.urls')),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     # path('accounts/', include('accounts.urls')),
     path('accounts/login/', LoginView.as_view(template_name='login.html')),

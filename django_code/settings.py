@@ -102,6 +102,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'oauth2_provider',
     'drf_yasg',
+    'api.apps.ApiConfig',
+    'sudoku.apps.SudokuConfig',
 ]
 
 MIDDLEWARE = [
@@ -165,6 +167,18 @@ DATABASES = {
     # }
 }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+    ],
+    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
 
 OAUTH2_PROVIDER = {
     'SCOPES': {
@@ -197,6 +211,47 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SWAGGER_SETTINGS = {
+    "SUPPORTED_SUBMIT_METHODS": [
+        "get",
+        "post",
+        "put",
+        "delete"
+    ],
+    "SECURITY_DEFINITIONS": {
+        "ApiKeyAuth":{
+            "type": "apiKey",
+            "in": "header",
+            "name": "Bearer"
+        },
+        "oauth2code": {
+            "type": "oauth2",
+            "flow": "accessCode", # authorizationCode
+            "authorizationUrl": "http://localhost:8000/o/authorize/",
+            "tokenUrl": "http://localhost:8000/o/token/",
+            "scopes": 
+            {
+                "write": "modify data in your account",
+                "read": "read your data",
+                "execute": "execute api functions"
+            },
+        },
+        # "oauth2password": {
+        #     "type": "oauth2",
+        #     "flow": "password",
+        #     "tokenUrl": "http://localhost:8000/o/token/",
+        #     "scopes": 
+        #     {
+        #         "write": "modify data in your account",
+        #         "read": "read your data",
+        #         "execute": "execute api functions"
+        #     },
+        # },
+    },
+    "USE_SESSION_AUTH": False,
+    "JSON_EDITOR": True,
+    "REFETCH_SCHEMA_ON_LOGOUT": True,
+}
 
 
 # Internationalization
