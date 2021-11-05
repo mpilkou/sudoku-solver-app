@@ -21,14 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # reading .env file
 import os
-import environ
-ENV = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+from dotenv import load_dotenv
+load_dotenv()
+
+ENV = os.environ.get
+ENV = os.getenv
 
 SECRET_KEY = ENV("SECRET_KEY")
-
-CLIENT_ID=ENV("AUTH_CODE_CLIENT_ID")
-CLIENT_SECRET=ENV("AUTH_CODE_CLIENT_SECRET")
 
 LOGGING = {
     'version': 1,
@@ -150,7 +150,7 @@ WSGI_APPLICATION = 'django_code.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': ENV.DB_SCHEMES['mysql'],
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': ENV('MYSQL_DB'),
         'USER': ENV('MYSQL_USER'),
         'PASSWORD': ENV('MYSQL_PASSWORD'),
@@ -177,6 +177,7 @@ REST_FRAMEWORK = {
     
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.DjangoModelPermissions',
     )
 }
 
@@ -186,6 +187,9 @@ OAUTH2_PROVIDER = {
         'write': 'Write scope',
         'execute': 'Execute scope'
         },
+    'DEFAULT_SCOPES': {
+        'read': 'Read scope',
+    }
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -219,26 +223,16 @@ SWAGGER_SETTINGS = {
         "delete"
     ],
     "SECURITY_DEFINITIONS": {
-        "ApiKeyAuth":{
+        "Bearer":{
             "type": "apiKey",
             "in": "header",
-            "name": "Bearer"
+            "name": "Authorization",
+            "description": "Input value format \<Bearer \<key\>\>",
         },
-        "oauth2code": {
-            "type": "oauth2",
-            "flow": "accessCode", # authorizationCode
-            "authorizationUrl": "http://localhost:8000/o/authorize/",
-            "tokenUrl": "http://localhost:8000/o/token/",
-            "scopes": 
-            {
-                "write": "modify data in your account",
-                "read": "read your data",
-                "execute": "execute api functions"
-            },
-        },
-        # "oauth2password": {
+        # "OAuth2code": {
         #     "type": "oauth2",
-        #     "flow": "password",
+        #     "flow": "accessCode", # authorizationCode
+        #     "authorizationUrl": "http://localhost:8000/o/authorize/",
         #     "tokenUrl": "http://localhost:8000/o/token/",
         #     "scopes": 
         #     {
@@ -247,6 +241,22 @@ SWAGGER_SETTINGS = {
         #         "execute": "execute api functions"
         #     },
         # },
+        "OAuth2password": {
+            "type": "oauth2",
+            "flow": "password",
+            "tokenUrl": "http://localhost:8000/o/token/",
+            "scopes": 
+            {
+                "write": "modify data in your account",
+                "read": "read your data",
+                "execute": "execute api functions"
+            },
+        },
+    },
+    'OAUTH2_CONFIG': {
+        'clientId': ENV('AUTH_PASSWORD_CLIENT_ID'),
+        'clientSecret': ENV('AUTH_PASSWORD_CLIENT_SECRET'),
+        'appName': 'api'
     },
     "USE_SESSION_AUTH": False,
     "JSON_EDITOR": True,
