@@ -26,3 +26,6 @@ class SudokuSerializer(serializers.Serializer):
     # ]
 
     sudoku_puzzle = SudokuPuzzleField()
+
+class SudokuAnsverSerializer(serializers.Serializer):
+    details = serializers.StringRelatedField()

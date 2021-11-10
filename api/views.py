@@ -1,7 +1,5 @@
-from pathlib import PurePosixPath
-
 from django.shortcuts import render
-from django.core.exceptions import BadRequest
+from django.core.exceptions import ValidationError
 # from django.contrib.auth.decorators import login_required
 
 from drf_yasg import openapi
@@ -17,14 +15,11 @@ from rest_framework.views import APIView
 
 from oauth2_provider.views.generic import ProtectedResourceView
 
-# from ..sudoku import sudoku_solver, models
-# import sudoku
-from sudoku import sudoku_solver, models
-
-from sudoku import serializers
+from sudoku.sudoku_solver import solve_sudoku_puzzle
+from sudoku.models import Sudoku
+from api.serializers import SudokuSerializer
 
 # Create your views here.
-# OAuth2Session
 @api_view(['GET'])
 def test(_):
     import logging
@@ -63,33 +58,45 @@ class SudokuView(APIView):
             [3,4,5,2,8,6,1,7,9]]
 
     @swagger_auto_schema(#operation_description="partial_update description override", 
-        responses={405: 'invalid input'},
-        request_body=serializers.SudokuSerializer,
-        operation_summary="resolve sudoku puzzle",
+        responses = { 400: 'detail', 401: 'detail' },
+        request_body = SudokuSerializer,
+        operation_summary = "resolve sudoku puzzle",
         # extra_overrides={"examples":[1,2,3,4]}
         )
     def post(self, request):
         ## "basic", "apiKey" or "oauth2"
+
+        # {"detail":"JSON parse error - Expecting value: line 11 column 28 (char 300)"}
+        # {"detail":{"sudoku_puzzle":["Обязательное поле."]}}
+        # {"detail":{"sudoku_puzzle":{"8":["Ensure this field has at least 9 elements."]}}}
+
         """
         :param request:
         :return:
         """
         # sudoku_puzzle
         sudoku_puzzle = request.data
-        sudoku_serializer = serializers.SudokuSerializer(data = sudoku_puzzle)
+        sudoku_serializer = SudokuSerializer(data = sudoku_puzzle)
 
-        valid = sudoku_serializer.is_valid(raise_exception=True)
+        valid = sudoku_serializer.is_valid()
+
         if not valid:
-            return Response(data='invalid input', status=405)
+            return Response(data = {'detail' : sudoku_serializer.errors}, status=400)
+
         sudoku_puzzle = sudoku_puzzle['sudoku_puzzle']
-        sudoku_solution = sudoku_solver.solve_sudoku_puzzle(self.puzzle)
+        sudoku_solution = solve_sudoku_puzzle(self.puzzle)
 
-        models.sudoku_list_to_model(sudoku_puzzle, sudoku_solution)
-
+        try:
+            # sudoku_list_to_model(sudoku_puzzle, sudoku_solution)
+            Sudoku.create_from_puzzle_and_solution_lists(sudoku_puzzle, sudoku_solution)
+        except ValidationError as validation_error:
+            return Response(data = {'detail' : validation_error}, status=400)
+        
         content = {
             'sudoku_puzzle': sudoku_puzzle,
             'sudoku_solution': sudoku_solution,
         }
+        
         return Response(content)
 
 
