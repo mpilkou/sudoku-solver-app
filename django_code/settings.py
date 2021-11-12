@@ -38,7 +38,7 @@ LOGGING = {
             'style': '{',
         },
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime} {module} \{process:d} {thread:d}/ {message}',
             'style': '{',
         },
     },
@@ -59,6 +59,12 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR.joinpath('logs/debug.log'),
+            'formatter': 'verbose',
+        },
         # 'mail_admins': {
         #     'level': 'ERROR',
         #     'class': 'django.utils.log.AdminEmailHandler',
@@ -69,6 +75,11 @@ LOGGING = {
         'django': {
             'handlers': ['console'],
             'propagate': True,
+        },
+        'django.file': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
         # 'django.request': {
         #     'handlers': ['mail_admins'],

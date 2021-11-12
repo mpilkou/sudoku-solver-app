@@ -11,7 +11,7 @@ class SudokuPuzzleField(serializers.ListField):
     max_length = 9
     allow_empty = False
 
-class SudokuSerializer(serializers.Serializer):
+class SudokuPuzzleSerializer(serializers.Serializer):
 
     # example = [
     #     [0,0,0,0,0,0,0,0,0],

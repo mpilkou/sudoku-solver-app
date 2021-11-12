@@ -17,7 +17,7 @@ from oauth2_provider.views.generic import ProtectedResourceView
 
 from sudoku.sudoku_solver import solve_sudoku_puzzle
 from sudoku.models import Sudoku
-from api.serializers import SudokuSerializer
+from api.serializers import SudokuPuzzleSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -59,7 +59,7 @@ class SudokuView(APIView):
 
     @swagger_auto_schema(#operation_description="partial_update description override", 
         responses = { 400: 'detail', 401: 'detail' },
-        request_body = SudokuSerializer,
+        request_body = SudokuPuzzleSerializer,
         operation_summary = "resolve sudoku puzzle",
         # extra_overrides={"examples":[1,2,3,4]}
         )
@@ -76,7 +76,7 @@ class SudokuView(APIView):
         """
         # sudoku_puzzle
         sudoku_puzzle = request.data
-        sudoku_serializer = SudokuSerializer(data = sudoku_puzzle)
+        sudoku_serializer = SudokuPuzzleSerializer(data = sudoku_puzzle)
 
         valid = sudoku_serializer.is_valid()
 
@@ -97,7 +97,7 @@ class SudokuView(APIView):
             'sudoku_solution': sudoku_solution,
         }
         
-        return Response(content)
+        return Response(content, status=201)
 
 
     def get(self, request):
