@@ -1,5 +1,5 @@
 from django import template
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 
@@ -10,7 +10,7 @@ from oauth2_provider.views.generic import ProtectedResourceView
 #     pass
 
 # Create your views here.
-@login_required
+# @login_required
 def index(req):
     return render(req, 'index.html')
 

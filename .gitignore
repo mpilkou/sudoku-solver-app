@@ -116,3 +116,5 @@ media/
 staticfiles
 accounts
 logs
+bootstrap
+templates/sudoku

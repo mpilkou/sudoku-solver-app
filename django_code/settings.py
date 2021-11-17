@@ -86,11 +86,6 @@ LOGGING = {
         #     'level': 'ERROR',
         #     'propagate': False,
         # },
-        # 'myproject.custom': {
-        #     'handlers': ['console', 'mail_admins'],
-        #     'level': 'INFO',
-        #     'filters': ['special']
-        # }
     }
 }
 
@@ -125,7 +120,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'oauth2_provider.middleware.OAuth2TokenMiddleware'
 
 
@@ -139,7 +133,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR.joinpath('templates'),
-            BASE_DIR.joinpath('templates/registration'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -182,13 +175,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
     ],
-    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
-        # 'rest_framework.permissions.DjangoModelPermissions',
     )
 }
 
@@ -240,18 +230,6 @@ SWAGGER_SETTINGS = {
             "name": "Authorization",
             "description": "Input value format \<Bearer \<key\>\>",
         },
-        # "OAuth2code": {
-        #     "type": "oauth2",
-        #     "flow": "accessCode", # authorizationCode
-        #     "authorizationUrl": "http://localhost:8000/o/authorize/",
-        #     "tokenUrl": "http://localhost:8000/o/token/",
-        #     "scopes": 
-        #     {
-        #         "write": "modify data in your account",
-        #         "read": "read your data",
-        #         "execute": "execute api functions"
-        #     },
-        # },
         "OAuth2password": {
             "type": "oauth2",
             "flow": "password",
@@ -278,7 +256,7 @@ SWAGGER_SETTINGS = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Simferopol'
 
@@ -298,8 +276,8 @@ STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    # BASE_DIR / "staticfiles",
+    BASE_DIR.joinpath('static'),
+    # BASE_DIR.joinpath('bootstrap'),
 ]
 
 # Default primary key field type
@@ -308,4 +286,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL='/accounts/login/'
+# LOGIN_REDIRECT_URL='/accounts/login/'
 # LOGIN_REDIRECT_URL = '/api/'
+
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
