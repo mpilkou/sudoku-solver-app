@@ -12,5 +12,5 @@ from oauth2_provider.views.generic import ProtectedResourceView
 # Create your views here.
 # @login_required
 def index(req):
-    return render(req, 'index.html')
+    return render(req, 'sudoku/index.html')
 

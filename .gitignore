@@ -117,4 +117,5 @@ staticfiles
 accounts
 logs
 bootstrap
+vuejs
 templates/sudoku

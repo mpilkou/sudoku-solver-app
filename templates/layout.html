@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}>
+    {% comment %} <link rel="stylesheet" href={% static 'bootstrap/css/bootstrap.min.css' %}> {% endcomment %}
     {% block head %}{% endblock head %}
 </head>
 <body class="text-center">
     {% block content %}
     {% endblock content %}
 
-    <script src={% static 'bootstrap/js/bootstrap.bundle.min.js' %} />
-    {% block end_body %}{% endblock end_body %}
+    {% comment %} <script src={% static 'bootstrap/js/bootstrap.min.js' %}></script> {% endcomment %}
+    {% block end_body %}
+    {% endblock end_body %}
 </body>
 </html>

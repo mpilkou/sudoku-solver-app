@@ -287,6 +287,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL='/accounts/login/'
 # LOGIN_REDIRECT_URL='/accounts/login/'
-# LOGIN_REDIRECT_URL = '/api/'
+LOGIN_REDIRECT_URL = '/api/'
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']

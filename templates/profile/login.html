@@ -1,11 +1,12 @@
+{% extends 'layout.html' %}
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href={% static 'css/login.css' %}>
+    <link rel="stylesheet" href={% static 'profile/css/login.css' %}>
 {% endblock head %}
 
 {% block title %}
-    <title>Login</title>
+    Login
 {% endblock title %}
 
 {% block content %}
@@ -22,7 +23,7 @@
 
             <div class="form-floating">
             <input name="username" type="" class="form-control" id="floatingInput" placeholder="Username">
-            <label for="floatingInput">username</label>
+            <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating">
             <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
@@ -41,5 +42,3 @@
     {% endif %}
     </main>
 {% endblock content %}
-
-{% include 'layout.html' %}
