@@ -1,25 +1,52 @@
-/* table{
-    border: 1px solid grey;
-    border-radius: 10px;
-/* , th, td {
-    border: 1px solid grey;
-    border-radius: 10px; 
-} */
-
-/* th, table{
-    border: 1px solid white;
-    border-radius: 50px;
-} */
-/* border-top: 2px solid black */
-/* td{
-    border: 1px solid grey;
-    border-radius: 50px;
-} */
-#sudoku_div{
-  margin-top: 3vw;
-  display: flex;
-  justify-content:space-around; 
+table{
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin: auto;
+    padding: auto;
+    width: 100%;
+    height: 100%;
 }
-#sudoku_about{
- 
+
+td{
+    border: 1px solid grey;
+}
+
+input{
+    text-align: center;
+    width: 3.5vw;
+    height: 3.5vw;
+    font-size: 3vw;
+    outline: none;
+    border: 0;
+}
+
+.top_border{
+    border-top: 3px solid black;
+}
+
+.left_border{
+    border-left: 3px solid black;
+}
+
+#sudoku_div{
+    margin-top: 3vw;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+}
+
+@media only screen and (max-width: 1000px) {
+    #sudoku_div{
+        grid-auto-flow: row;
+    }
+}
+
+button{
+    margin-top: 1vw;
+    width: 100%;
+    height: 7ex;
+}
+
+h1{
+    text-align: center;
 }
