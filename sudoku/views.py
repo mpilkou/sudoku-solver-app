@@ -6,11 +6,13 @@ from django.contrib.auth.decorators import login_required
 from oauth2_provider.decorators import protected_resource
 from oauth2_provider.views.generic import ProtectedResourceView
 
+from django_code.settings import DEBUG
+
 # class ApiEndpoint(ProtectedResourceView):
 #     pass
 
 # Create your views here.
 # @login_required
 def index(req):
-    return render(req, 'sudoku/index.html')
+    return render(req, 'sudoku/index.html', {'DEBUG':DEBUG})
 

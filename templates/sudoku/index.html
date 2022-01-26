@@ -7,121 +7,29 @@
 
 {% block head %}
     <link rel="stylesheet" href={% static 'sudoku/css/sudoku_fields.css' %}>
-    <script src="/static/vuejs/vue.global.prod.js"></script>
+    {% if DEBUG == True %}
+      <script src="https://unpkg.com/vue@next"></script>
+    {% else %}
+      <script src="/static/vuejs/vue.global.prod.js"></script>
+    {% endif %}
 {% endblock head %}
 
 {% block content %}
 
     <div id="sudoku_div">
       <div id="sudoku_about">
-        <h1>[[product]] puzzle solver</h1>
-        <p>Put values 1-9 into cells and push solve button to solve sudoku. </br> Value 0 is interpreted as a blank field.</p>
+        <h1>Sudoku puzzle solver</h1>
+        <p>Put values 1-9 into cells and push solve button to solve sudoku.</p>
       </div>
+
       <div id="sudoku_puzzle">
-          <form>
-            <table>
-              <tr id="tr_1">
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td class="left_border"><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td class="left_border"><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_2">
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td class="left_border"><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td class="left_border"><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_3">
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td class="left_border"><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td class="left_border"><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-                <td><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_4">
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border left_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border left_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_5">
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_6">
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_7">
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border left_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border left_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-                  <td class="top_border"><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_8">
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-              </tr>
-              <tr id="tr_9">
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td class="left_border"><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-                  <td><input type="text" maxlength="1"></td>
-              </tr>
-            </table>
-          <button type="submit">Solve</button>
-          </form>
+        <form>
+          {% csrf_token %}
+            <sudoku-input></sudoku-input>
+            
+            <button type="submit" :disabled="disabled">Solve</button>
+          </form> 
+
       </div>
   </div>
 {% endblock content %}
