@@ -7,43 +7,7 @@ isSudokuFormValid = () => {
     return true
 }
 
-const SudokuInputCellComponent = {
-    props: {
-        id_col: Number,
-        id_row: Number,
-        id_sqr: Number,
-        input: Number,
-        error: Boolean,
-        info: Boolean
-    },
-    data() {
-        return {
-            left_border: false,
-            top_border: false
-        }
-    },
-    template:
-    `<td :class="{'left_border':left_border, 'top_border':top_border}" v-for="col in row">   
-        <input type="text" maxlength="1" :class="{'error':col.error}"
-        :key="col.value"
-        v-model="col.value"
-        @keypress="validateField(col.row_id, col.col_id, col.value)">
-    </td>`,
-    methods: {
-        
-    }
-}
-
 const SudokuInputComponent = {
-    template: 
-      `<table>
-        <tr v-for="row in inputs">
-            <sudoku-input-cell ></sudoku-input-cell>
-        </tr>
-      </table>`,
-}
-
-const SudokuInputComponent2 = {
     delimiters: ['[[',']]'],
     el: "#sudoku_puzzle",
     data() {
@@ -150,6 +114,7 @@ const SudokuInputComponent2 = {
         <tr v-for="row in inputs">
             <td :class="{'left_border':col.left_border, 'top_border':col.top_border}" v-for="col in row">
             <input type="text" maxlength="1" :class="{'error':col.error}"
+            :key="col.value"
             v-model="col.value"
             @keypress="validateField(col.row_id, col.col_id, col.value)">
             </td>
@@ -208,14 +173,13 @@ const SudokuInputComponent2 = {
             //     const button = document.querySelector('button')
             //     button.disabled = false
             // }
+
         }
     },
     // mounted() {
     //     this.initFields()
     // }
 }
-
-
 
 const SudokuFieldsApp = {
     delimiters: ['[[',']]'],
@@ -226,8 +190,7 @@ const SudokuFieldsApp = {
         }
     },
     components:{
-        'sudoku-input': SudokuInputComponent2,
-        'sudoku-input-cell': SudokuInputCellComponent
+        'sudoku-input': SudokuInputComponent
     },
     computed:{
         // inputsArrayCreator(x){

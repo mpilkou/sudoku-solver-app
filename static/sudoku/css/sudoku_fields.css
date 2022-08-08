@@ -24,6 +24,10 @@ input{
     background-color: red;
 }
 
+.lightgray_back{
+    background-color: lightgray;
+}
+
 .top_border{
     border-top: 3px solid black;
 }
